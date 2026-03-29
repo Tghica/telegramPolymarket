@@ -1,0 +1,88 @@
+# TELEGRAM POLYMARKET BOT - PROJECT SPECIFICATIONS
+# ================================================
+# Use this file to document all requirements and features for the project
+# Fill in each section with your exact specifications
+
+## 1. CORE FEATURES
+# List the main features your bot should have
+- Example: Users can create binary prediction markets (YES/NO outcomes)
+-
+
+
+## 2. MARKET MECHANICS
+# Define how markets work
+# - Initial funding amount per user
+# - Betting duration limits
+# - Resolution process
+# - Fee structure
+#
+
+
+## 3. USER MANAGEMENT
+# Define user-related features
+# - User registration/authentication
+# - Balance tracking
+# - User profiles
+# - Betting history
+#
+
+
+## 4. BETTING MECHANICS
+# Define how betting works
+# - Minimum/maximum bet amounts
+# - Odds calculation method
+# - Live odds updates
+# - Bet slip/confirmation
+#
+
+
+## 5. MARKET MANAGEMENT
+# Define market lifecycle
+# - How markets are created
+# - Duration limits
+# - Market categories
+# - Resolution and settlement
+#
+
+
+## 6. BOT COMMANDS
+# List all Telegram commands your bot should have
+# /start -
+# /help -
+# /markets -
+#
+
+
+## 7. DATABASE REQUIREMENTS
+# Define what data needs to be stored
+# - Users table
+# - Markets table
+# - Bets table
+# - Transactions table
+#
+
+
+## 8. NOTIFICATIONS & ALERTS
+# Define user notifications
+# - Market updates
+# - Bet confirmations
+# - Market resolution alerts
+# - Balance alerts
+#
+
+
+## 9. INTEGRATION REQUIREMENTS
+# List any external services needed
+# - Price feeds
+# - Payment systems
+# - Analytics
+#
+
+
+## 10. TECHNICAL CONSTRAINTS
+# Define technical limits and preferences
+# - Database type (SQL/NoSQL)
+# - Hosting platform
+# - Rate limits
+# - Error handling approach
+#
