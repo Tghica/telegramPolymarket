@@ -6,9 +6,10 @@ Building a Telegram bot that operates as a **house model (AMM liquidity market)*
 ---
 
 ## Phase 1: User Management
-- [ ] **1a:** Implement SQLite database connection and models
-- [ ] **1b:** Implement user registration and balance system
-- [ ] **1c:** Create /balance and /history commands
+- [x] **1a:** Implement SQLite database connection and models
+- [x] **1b:** Implement user registration and balance system
+- [x] **1c:** Create /balance command
+- [x] **1d:** Create /history command
 
 ---
 

@@ -68,3 +68,40 @@ def validate_bet_amount(amount: float, user_balance: float, min_bet: float, max_
         return False, f"Insufficient balance. You have {format_currency(user_balance)}"
 
     return True, "Valid"
+
+
+def format_user_balance(user: 'User') -> str:
+    """Format user balance for display"""
+    if not user:
+        return "❌ User not found"
+
+    created_date = user.created_at.strftime("%b %d, %Y") if user.created_at else "Unknown"
+    output = f"""
+💰 <b>Account Balance</b>
+
+Balance: <b>{format_currency(user.balance)}</b>
+Member since: {created_date}
+User ID: <code>{user.user_id}</code>
+"""
+    return output.strip()
+
+
+def format_user_history(bets: List, markets_dict: Dict = None) -> str:
+    """Format user betting history for display"""
+    if not bets:
+        return "📊 No betting history yet.\n\nUse /markets to see available markets and /bet to place your first bet!"
+
+    output = "📊 <b>Recent Bets</b>\n\n"
+
+    for i, bet in enumerate(bets[:10], 1):  # Show last 10 bets
+        status_emoji = "⏳" if bet.status == "PENDING" else ("✅" if bet.status == "WON" else "❌")
+        date_str = bet.placed_at.strftime("%b %d, %H:%M") if bet.placed_at else "Unknown"
+
+        output += f"{i}. {status_emoji} <b>{bet.prediction}</b> - {format_currency(bet.amount)}\n"
+        output += f"   Market: <code>{bet.market_id}</code>\n"
+        output += f"   Status: {bet.status} | {date_str}\n\n"
+
+    if len(bets) > 10:
+        output += f"... and {len(bets) - 10} more bets"
+
+    return output.strip()
