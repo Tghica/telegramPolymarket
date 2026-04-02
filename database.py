@@ -52,6 +52,8 @@ class Market(Base):
     ends_at = Column(DateTime)
     status = Column(String(50), default="ACTIVE")  # ACTIVE, RESOLVED
     outcome = Column(String(50), nullable=True)  # YES, NO, or None if not resolved
+    yes_price = Column(Float, default=0.5)  # Price of YES bond
+    no_price = Column(Float, default=0.5)   # Price of NO bond
 
     def to_dict(self):
         return {
@@ -61,7 +63,9 @@ class Market(Base):
             'created_at': self.created_at,
             'ends_at': self.ends_at,
             'status': self.status,
-            'outcome': self.outcome
+            'outcome': self.outcome,
+            'yes_price': self.yes_price,
+            'no_price': self.no_price
         }
 
 
@@ -228,8 +232,8 @@ def get_market(market_id: str) -> Optional[Market]:
         session.close()
 
 
-def create_market_db(market_id: str, creator_id: int, question: str, duration_days: int = 7) -> Optional[Market]:
-    """Create new market"""
+def create_market_db(market_id: str, creator_id: int, question: str, duration_days: int = 7, yes_price: float = 0.5, no_price: float = 0.5) -> Optional[Market]:
+    """Create new market with fixed YES/NO prices"""
     session = SessionLocal()
     try:
         # Verify creator exists
@@ -245,11 +249,13 @@ def create_market_db(market_id: str, creator_id: int, question: str, duration_da
             question=question,
             created_at=created_at,
             ends_at=created_at + timedelta(days=duration_days),
-            status="ACTIVE"
+            status="ACTIVE",
+            yes_price=yes_price,
+            no_price=no_price
         )
         session.add(market)
         session.commit()
-        logger.info(f"Created market: {market_id}")
+        logger.info(f"Created market: {market_id} (YES: ${yes_price:.2f}, NO: ${no_price:.2f})")
         return market
 
     except Exception as e:
@@ -401,3 +407,9 @@ async def async_resolve_market(market_id: str, outcome: str) -> bool:
     """Async wrapper for resolve_market"""
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(None, lambda: resolve_market(market_id, outcome))
+
+
+async def async_create_market_db(market_id: str, creator_id: int, question: str, duration_days: int = 7, yes_price: float = 0.5, no_price: float = 0.5) -> Optional[Market]:
+    """Async wrapper for create_market_db"""
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(None, lambda: create_market_db(market_id, creator_id, question, duration_days, yes_price, no_price))

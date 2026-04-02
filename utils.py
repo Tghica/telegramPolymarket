@@ -9,15 +9,19 @@ from datetime import datetime
 def format_market_list(markets: List) -> str:
     """Format market list for display"""
     if not markets:
-        return "No markets available"
+        return "❌ No active markets yet.\n\nUse /create to start a prediction market!"
 
     output = "📊 <b>Active Markets</b>\n\n"
 
     for i, market in enumerate(markets, 1):
-        # TODO: Implement based on your Market model structure
-        output += f"{i}. Market question\n"
-        output += f"   Status: Active | Ends: Date\n\n"
+        # Calculate time remaining
+        time_left = time_remaining(market.ends_at)
 
+        output += f"{i}. <b>{market.question}</b>\n"
+        output += f"   💰 YES: ${market.yes_price:.2f} | NO: ${market.no_price:.2f}\n"
+        output += f"   ⏱ Ends in: {time_left} | ID: <code>{market.market_id}</code>\n\n"
+
+    output += "Use <code>/bet</code> to place a prediction!"
     return output
 
 

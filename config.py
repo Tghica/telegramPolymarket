@@ -29,10 +29,11 @@ Welcome to Polymarket Bot! 🎯
 Predict outcomes and earn rewards.
 
 Available commands:
-/help - Show all commands
+/balance - Check your account balance
 /markets - View active markets
 /create - Create a new market
 /bet - Place a bet
+/help - Show all commands
 """
 
 HELP_MESSAGE = """
